@@ -1,0 +1,14 @@
+{
+  "name": "electron-shoppinglist",
+  "version": "1.0.0",
+  "description": "shopping list desktop app",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Soumesh Khuntia",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^18.0.4"
+  }
+}
