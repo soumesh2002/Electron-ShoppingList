@@ -64,7 +64,7 @@ const mainMenuTemplate = [
       },
       {
         label: "Quit",
-        accelerator: process.platform == "win32" ? "Alt+F4" : "Ctrl+Q",
+        accelerator: process.platform == "win32" ? "Alt+F4" : "Command+Q",
         click() {
           app.quit();
         },
@@ -72,3 +72,27 @@ const mainMenuTemplate = [
     ],
   },
 ];
+
+// for macOS
+if (process.platform == "darwin") {
+  mainMenuTemplate.unshift({});
+}
+
+// add developer tools item if not in production
+if (process.env.NODE_ENV !== "production") {
+  mainMenuTemplate.push({
+    label: "Developer Tools",
+    submenu: [
+      {
+        label: "Toggle Devtools",
+        accelerator: process.platform == "win32" ? "Ctrl+I" : "Command+I",
+        click(item, focusedWindow) {
+          focusedWindow.toggleDevTools();
+        },
+      },
+      {
+        role: "reload",
+      },
+    ],
+  });
+}
