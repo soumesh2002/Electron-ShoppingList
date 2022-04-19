@@ -5,6 +5,7 @@ const path = require("path");
 const { app, BrowserWindow, Menu } = electron;
 
 let mainWindow;
+let addWindow;
 
 // listen for app to be ready
 app.on("ready", function () {
@@ -17,12 +18,35 @@ app.on("ready", function () {
       slashes: true,
     })
   );
+
+  mainWindow.on("closed", function () {
+    app.quit();
+  });
+
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
   Menu.setApplicationMenu(mainMenu);
 });
 
 // Handling create add function
-function createAddWindow() {}
+function createAddWindow() {
+  addWindow = new BrowserWindow({
+    width: 300,
+    height: 200,
+    title: "Add shopping list item",
+  });
+  // Load HTML file
+  addWindow.loadURL(
+    url.format({
+      pathname: path.join(__dirname, "addWindow.html"),
+      protocol: "file:",
+      slashes: true,
+    })
+  );
+  // Garbage collection handle
+  addWindow.on("close", function () {
+    addWindow = null;
+  });
+}
 
 // create menu template
 const mainMenuTemplate = [
