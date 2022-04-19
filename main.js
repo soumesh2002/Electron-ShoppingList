@@ -1,8 +1,6 @@
-const electron = require("electron");
+const { app, BrowserWindow, Menu } = require("electron");
 const url = require("url");
 const path = require("path");
-
-const { app, BrowserWindow, Menu } = electron;
 
 let mainWindow;
 let addWindow;
@@ -30,10 +28,14 @@ app.on("ready", function () {
 // Handling create add function
 function createAddWindow() {
   addWindow = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: false,
+    },
     width: 300,
     height: 200,
     title: "Add shopping list item",
   });
+
   // Load HTML file
   addWindow.loadURL(
     url.format({
